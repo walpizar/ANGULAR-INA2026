@@ -1,0 +1,38 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  height: 64px;
+
+  /* MISMO ESTILO DEL HEADER */
+  background: linear-gradient(90deg, #ffffff, #f0f4ff);
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.08);
+
+  padding: 0 20px;
+  z-index: 100;
+}
+
+.footer-left {
+  font-size: 14px;
+  color: #1e3c72;
+  font-weight: 500;
+}
+
+.footer-right button {
+  color: #1e3c72;
+  transition: all 0.3s ease;
+}
+
+.footer-right button:hover {
+  transform: scale(1.2);
+  color: #2a5298;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
