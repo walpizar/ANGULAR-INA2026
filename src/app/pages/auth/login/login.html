@@ -1,22 +1,29 @@
 <form [formGroup]="loginForm" class="login-form">
-  <mat-card>
+  <mat-card class="login-card">
     <mat-card-header>
       <mat-card-title>Iniciar Sesión</mat-card-title>
     </mat-card-header>
+
     <mat-card-content>
       <div class="form-field">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Correo Electrónico</mat-label>
-          <input matInput formControlName="email" type="email" placeholder="aaa@ejemplo.com" />
-          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          <input
+            matInput
+            formControlName="username"
+            type="username"
+            placeholder="aaa@ejemplo.com"
+          />
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
             El correo electrónico es obligatorio
           </mat-error>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          <mat-error *ngIf="loginForm.get('username')?.hasError('username')">
             Ingresa un correo electrónico válido
           </mat-error>
         </mat-form-field>
       </div>
-      <mat-form-field class="form-field">
+
+      <div class="form-field">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contraseña</mat-label>
           <input matInput formControlName="password" type="password" placeholder="********" />
@@ -27,10 +34,19 @@
             La contraseña debe tener al menos 6 caracteres
           </mat-error>
         </mat-form-field>
-      </mat-form-field>
+      </div>
     </mat-card-content>
+
     <mat-card-actions>
-      <button mat-raised-button color="primary" class="full-width">Iniciar Sesión</button>
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        [disabled]="loginForm.invalid"
+        (click)="login()"
+      >
+        Iniciar Sesión
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

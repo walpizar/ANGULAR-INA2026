@@ -1,4 +1,67 @@
 # =========================
+# Node.js
+# =========================
+API/node_modules/
+npm-debug.log*
+API/yarn-debug.log*
+API/yarn-error.log*
+API/pnpm-debug.log*
+
+# =========================
+# TypeScript
+# =========================
+API/dist/
+API/build/
+API/*.tsbuildinfo
+
+# =========================
+# TypeORM
+# =========================
+API/ormconfig.json
+API/.env
+API/.env.*
+API/!.env.example
+
+# =========================
+# Database
+# =========================
+API/*.sqlite
+API/*.sqlite3
+API/*.db
+
+# =========================
+# Coverage / Tests
+# =========================
+API/coverage/
+API/.nyc_output/
+
+# =========================
+# Logs
+# =========================
+API/logs/
+API/*.log
+
+# =========================
+# IDEs / Editors
+# =========================
+API/.vscode/
+API/!.vscode/settings.json
+API/.idea/
+API/*.swp
+
+# =========================
+# OS files
+# =========================
+API/.DS_Store
+API/Thumbs.db
+
+# =========================
+# Temporary files
+# =========================
+API/tmp/
+API/temp/
+
+# =========================
 # Angular / Node
 # =========================
 

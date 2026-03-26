@@ -1,3 +1,52 @@
-<app-header></app-header>
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sidebar">
+    <div class="logo-section">
+      <div class="logo-circle">
+        <mat-icon>bolt</mat-icon>
+      </div>
+      <h2>Mi App</h2>
+      <p>Menú principal</p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-nav-list>
+      @for (item of menuItems; track item.label) {
+        <a mat-list-item [routerLink]="item.route" routerLinkActive="active-link" class="menu-link">
+          <mat-icon matListItemIcon class="icono">{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content-area">
+    <mat-toolbar class="topbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="title">Sistema Angular Material</span>
+
+      <span class="spacer"></span>
+
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <button mat-icon-button>
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <div class="page-content">
+      <div class="welcome-card">
+        <h1>Bienvenido</h1>
+
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
 <app-footer></app-footer>

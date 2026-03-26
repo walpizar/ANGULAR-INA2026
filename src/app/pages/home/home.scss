@@ -1,8 +1,113 @@
-.example-card {
-  max-width: 400px;
+.layout-container {
+  height: 100vh;
+  background: #f4f7fb;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+.sidebar {
+  width: 270px;
+  border-radius: 0 20px 20px 0;
+  background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  padding-top: 10px;
+}
+
+.logo-section {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.logo-circle {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 12px auto;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.logo-circle mat-icon {
+  font-size: 34px;
+  width: 34px;
+  height: 34px;
+}
+
+.logo-section h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.logo-section p {
+  margin-top: 6px;
+  opacity: 0.85;
+  font-size: 13px;
+}
+.icono {
+  color: #b4b6b8 !important;
+}
+
+.menu-link {
+  margin: 8px 12px;
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  color: white !important;
+}
+
+.menu-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateX(4px);
+}
+
+.active-link {
+  background: rgba(255, 255, 255, 0.22) !important;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.content-area {
+  background: linear-gradient(135deg, #eef2f7 0%, #ffffff 100%);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(90deg, #ffffff, #f0f4ff);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  margin-left: 12px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1e3c72;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.page-content {
+  padding: 24px;
+}
+
+.welcome-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.welcome-card h1 {
+  margin: 0 0 10px 0;
+  color: #1e3c72;
+}
+
+.welcome-card p {
+  margin: 0;
+  color: #e4e3e3;
 }
