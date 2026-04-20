@@ -32,10 +32,15 @@ export class AuthController {
         expiresIn: '3m',
       });
 
-      //devolver token por header
-      res.setHeader('token', token);
-
-      return res.status(200).json({ message: 'Autenticación exitosa', role: user.role });
+      return res.status(200).json({
+        token,
+        role: user.role,
+        user: {
+          id: user.id,
+          name: user.username,
+          email: user.username,
+        },
+      });
     } catch (error) {
       return res.status(500).json({ message: 'Error al autenticarse.' });
     }
