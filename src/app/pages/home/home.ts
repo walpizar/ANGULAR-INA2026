@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MATERIAL_IMPORTS } from '../../shared/material-imports';
 import { Footer } from '../../layout/footer/footer';
+import { AuthService } from '../../services/authServices';
 @Component({
   selector: 'app-home',
   imports: [...MATERIAL_IMPORTS, Footer, RouterLink, RouterOutlet],
@@ -9,9 +10,13 @@ import { Footer } from '../../layout/footer/footer';
   styleUrl: './home.scss',
 })
 export class Home {
+  private authService = inject(AuthService);
+
+  //  isLoggedIn = this.authService.isLoggedIn();
+
   titulo: string = 'Bienvenidos INA APP! xxxxx';
 
-  opened = true;
+  opened: boolean = true;
 
   menuItems = [
     { icon: 'home', label: 'Inicio', route: '/inicio' },

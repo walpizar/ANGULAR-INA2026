@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/authServices';
 import { LoginModel } from '../../../models/loginModel';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-login',
@@ -24,15 +25,14 @@ export class Login {
 
   login(): void {
     if (this.loginForm.valid) {
-      console.log('Formulario válido', this.loginForm.value);
-      // this.authService.login(this.loginForm.value as LoginModel).subscribe({
-      //   next: (resp) => {
-      //     console.log('Login correcto', resp);
-      //   },
-      //   error: () => {
-      //     console.log('Error');
-      //   },
-      // });
+      this.authService.login(this.loginForm.value as LoginModel).subscribe({
+        next: (resp) => {
+          this.authService.saveSession(resp);
+        },
+        error: (error) => {
+          console.log('Error', error);
+        },
+      });
     }
   }
 }

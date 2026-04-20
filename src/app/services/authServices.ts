@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { LoginModel, LoginResponse } from '../models/loginModel';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -7,32 +7,43 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
+  //signal
+  private tokenSignal = signal<string | null>(localStorage.getItem('token'));
 
+  isLoggedIn = computed(() => !!this.tokenSignal());
+
+  private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  login(datos: LoginModel): Observable<LoginResponse> {}
-
-  // 🔑 Obtener token
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  login(datos: LoginModel): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, datos);
   }
 
-  // 👤 Obtener usuario
-  getUsuario(): string | null {
-    return localStorage.getItem('usuario');
+  saveSession(resp: LoginResponse): void {
+    console.log('Login correcto', resp);
+    // Guardar token y usuario en localStorage
+    localStorage.setItem('token', resp.token);
+    localStorage.setItem('usuario', resp.user.toString());
+    localStorage.setItem('rol', resp.role);
+
+    // Actualizar el signal con el nuevo token
+    this.tokenSignal.set(resp.token);
   }
 
-  // 🛡️ Verificar autenticación
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    return !!token;
-  }
-
-  // 🚪 Logout
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('rol');
+    this.tokenSignal.set(null); // Limpiar el signal al cerrar sesión
+  }
+
+  // Obtener token
+  getToken(): string | null {
+    return this.tokenSignal();
+  }
+
+  //  Obtener usuario
+  getUsuario(): string | null {
+    return localStorage.getItem('usuario');
   }
 }
