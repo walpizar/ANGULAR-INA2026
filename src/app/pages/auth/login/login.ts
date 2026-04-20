@@ -14,6 +14,7 @@ import { LoginModel } from '../../../models/loginModel';
 })
 export class Login {
   private fb = inject(FormBuilder);
+  //inyecicon de dependencias, para acceder al objeto de servicio de autenticacion
   private authService = inject(AuthService);
 
   loginForm = this.fb.group({
@@ -23,14 +24,15 @@ export class Login {
 
   login(): void {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value as LoginModel).subscribe({
-        next: (resp) => {
-          console.log('Login correcto', resp);
-        },
-        error: () => {
-          console.log('Error');
-        },
-      });
+      console.log('Formulario válido', this.loginForm.value);
+      // this.authService.login(this.loginForm.value as LoginModel).subscribe({
+      //   next: (resp) => {
+      //     console.log('Login correcto', resp);
+      //   },
+      //   error: () => {
+      //     console.log('Error');
+      //   },
+      // });
     }
   }
 }

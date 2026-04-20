@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { LoginModel, LoginResponse } from '../models/loginModel';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,24 +11,7 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000/api/auth';
 
-  login(datos: LoginModel): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, datos).pipe(
-      tap(
-        (respuesta) => {
-          // Guardar token y datos
-          localStorage.setItem('token', respuesta.token);
-          localStorage.setItem('usuario', respuesta.user.name);
-
-          if (respuesta.role) {
-            localStorage.setItem('rol', respuesta.role);
-          }
-        },
-        (error) => {
-          console.error('Error en login:', error);
-        },
-      ),
-    );
-  }
+  login(datos: LoginModel): Observable<LoginResponse> {}
 
   // 🔑 Obtener token
   getToken(): string | null {
