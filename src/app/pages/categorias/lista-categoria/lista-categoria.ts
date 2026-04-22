@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CategoriaService } from '../../../services/categoria-service';
 import { Categoria } from '../../../models/categoria.model';
 import { MATERIAL_IMPORTS } from '../../../shared/material-imports';
@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './lista-categoria.html',
   styleUrl: './lista-categoria.scss',
 })
-export class ListaCategoria implements OnInit {
+export class ListaCategoria implements OnInit, AfterViewInit {
   categorias: Categoria[] = [];
   private categoriaService = inject(CategoriaService);
 
@@ -37,6 +37,11 @@ export class ListaCategoria implements OnInit {
         console.error('Error al cargar las categorias:', error);
       },
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
