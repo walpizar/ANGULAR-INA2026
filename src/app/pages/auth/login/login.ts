@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/authServices';
 import { LoginModel } from '../../../models/loginModel';
-import { error } from 'node:console';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,7 @@ import { error } from 'node:console';
 })
 export class Login {
   private fb = inject(FormBuilder);
+  private router = inject(Router);
   //inyecicon de dependencias, para acceder al objeto de servicio de autenticacion
   private authService = inject(AuthService);
 
@@ -28,6 +29,8 @@ export class Login {
       this.authService.login(this.loginForm.value as LoginModel).subscribe({
         next: (resp) => {
           this.authService.saveSession(resp);
+          //redireccion a la pagina de inicio dashaboard
+          this.router.navigate(['/dashboard'], { replaceUrl: true });
         },
         error: (error) => {
           console.log('Error', error);

@@ -8,7 +8,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
   //signal
-  private tokenSignal = signal<string | null>(localStorage.getItem('token'));
+  private tokenSignal = signal<string | null>(
+    typeof window !== 'undefined' ? localStorage.getItem('token') : null,
+  );
 
   isLoggedIn = computed(() => !!this.tokenSignal());
 
