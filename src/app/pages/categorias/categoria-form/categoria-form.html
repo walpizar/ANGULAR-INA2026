@@ -1,0 +1,76 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon>
+    {{ data.isModificar ? 'edit' : data.categoria ? 'visibility' : 'add_circle' }}
+  </mat-icon>
+
+  <span>
+    {{
+      data.isModificar
+        ? 'Modificar Categoría'
+        : data.categoria
+          ? 'Detalle de Categoría'
+          : 'Crear Categoría'
+    }}
+  </span>
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" class="categoria-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" readonly />
+      <mat-icon matSuffix>fingerprint</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Ej: Tecnología" />
+      <mat-icon matSuffix>category</mat-icon>
+
+      @if (form.get('nombre')?.hasError('required') && form.get('nombre')?.touched) {
+        <mat-error>El nombre es obligatorio</mat-error>
+      }
+
+      @if (form.get('nombre')?.hasError('minlength')) {
+        <mat-error>Debe tener al menos 3 caracteres</mat-error>
+      }
+
+      @if (form.get('nombre')?.hasError('maxlength')) {
+        <mat-error>Máximo 100 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="descripcion"
+        placeholder="Descripción de la categoría"
+      ></textarea>
+      <mat-icon matSuffix>description</mat-icon>
+
+      @if (form.get('descripcion')?.hasError('required') && form.get('descripcion')?.touched) {
+        <mat-error>La descripción es obligatoria</mat-error>
+      }
+
+      @if (form.get('descripcion')?.hasError('maxlength')) {
+        <mat-error>Máximo 500 caracteres</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
+
+  @if (!data.categoria || data.isModificar) {
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="guardar()">
+      <mat-icon>{{ data.isModificar ? 'save' : 'add' }}</mat-icon>
+      {{ data.isModificar ? 'Guardar' : 'Crear' }}
+    </button>
+  }
+</mat-dialog-actions>

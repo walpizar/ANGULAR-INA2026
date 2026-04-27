@@ -1,6 +1,6 @@
-import { plainToInstance } from "class-transformer";
-import { validate } from "class-validator";
-import { Request, Response, NextFunction } from "express";
+import { plainToInstance } from 'class-transformer';
+import { validate } from 'class-validator';
+import { Request, Response, NextFunction } from 'express';
 
 type ValidateConfig = {
   params?: new () => object;
@@ -21,7 +21,7 @@ const formatErrors = (errors: any[]) =>
 async function validatePart(
   value: any,
   DtoClass: new () => object,
-  options = { whitelist: true, forbidNonWhitelisted: true },
+  options = { whitelist: true, forbidNonWhitelisted: false },
 ) {
   const dto = plainToInstance(DtoClass, value);
   const errors = await validate(dto, options);
@@ -29,38 +29,37 @@ async function validatePart(
 }
 
 export const validateRequest =
-  (config: ValidateConfig) =>
-  async (req: Request, res: Response, next: NextFunction) => {
+  (config: ValidateConfig) => async (req: Request, res: Response, next: NextFunction) => {
     try {
       const allErrors: Array<{
-        source: "params" | "body" | "query";
+        source: 'params' | 'body' | 'query';
         errors: any[];
       }> = [];
 
       // PARAMS
       if (config.params) {
         const { dto, errors } = await validatePart(req.params, config.params);
-        if (errors.length) allErrors.push({ source: "params", errors });
+        if (errors.length) allErrors.push({ source: 'params', errors });
         else req.params = dto as any;
       }
 
       // QUERY
       if (config.query) {
         const { dto, errors } = await validatePart(req.query, config.query);
-        if (errors.length) allErrors.push({ source: "query", errors });
+        if (errors.length) allErrors.push({ source: 'query', errors });
         else req.query = dto as any;
       }
 
       // BODY
       if (config.body) {
         const { dto, errors } = await validatePart(req.body, config.body);
-        if (errors.length) allErrors.push({ source: "body", errors });
+        if (errors.length) allErrors.push({ source: 'body', errors });
         else req.body = dto as any;
       }
 
       if (allErrors.length) {
         return res.status(400).json({
-          message: "Validación fallida",
+          message: 'Validación fallida',
           errors: allErrors.map((e) => ({
             source: e.source,
             details: formatErrors(e.errors),
@@ -70,6 +69,6 @@ export const validateRequest =
 
       next();
     } catch {
-      return res.status(500).json({ message: "Error ejecutando validaciones" });
+      return res.status(500).json({ message: 'Error ejecutando validaciones' });
     }
   };
